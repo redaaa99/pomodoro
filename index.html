@@ -3,8 +3,28 @@
 <head>
 	<title>Pomodoro Clock</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
-</head>
+	<link href="https://fonts.googleapis.com/css?family=Raleway:300i,400" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:300i" rel="stylesheet">
+	</head>
 <body>
 	<h1>Pomodoro Clock </h1>
+	<div id="options">
+		<div id="break">
+			<p>Break length minutes</p><br/>
+			<button onclick="breakvalminus()">-</button>
+			<p class="values" id="breakval">5</p>
+			<button onclick="breakvalplus()">+</button>
+		</div>
+		<div id="session">
+			<p>Session length minutes</p><br/>
+			<button onclick="sessionvalminus()">-</button>
+			<p class="values" id="sessionval">25</p>
+			<button onclick="sessionvalplus()">+</button>
+		</div>
+	</div>
+	<div id="loading" class="circle circle-outer-border animated">
+	  <div id="fill" class="circle circle-fill"></div>
+	</div>
 </body>
+<script type="text/javascript" src="script.js"></script>
 </html>

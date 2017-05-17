@@ -1,3 +1,79 @@
 *{
 	margin: 0px;
 }
+body{
+	background-color: #333;
+}
+
+h1{
+	text-align: center;
+	font-family: 'Raleway', sans-serif;
+	letter-spacing: 5px;
+	font-size: 50pt;
+	color : white;
+	margin-top: 50px;
+	text-shadow: 1px 1px 5px rgb(255,153,0);
+}
+
+#options{
+	text-align: center;
+	margin: 30px auto;
+	width : 38%;
+}
+
+#session{
+	margin-top: 30px;
+	padding-bottom: 5px;
+	background-color: rgba( 255, 153, 0,0.5);
+	border-radius: 38px;
+}
+
+#break{
+	background-color: rgba( 255, 153, 0,0.5);
+	padding-bottom: 5px;
+	border-radius: 38px;
+}
+p{
+	display: inline;
+	color: white;
+	font-family: monospace;
+	font-size: 25pt; 
+	text-shadow: 1px 1px 1px white;
+}
+
+.values{
+	font-size:25pt;
+	text-shadow: none;
+	font-family: 'Raleway', sans-serif;
+
+}
+
+button{
+	outline: none;
+	color :white;
+	border: none;
+	background-color: rgba(255,255,255,0);
+	font-family: monospace;
+	font-size:20pt;
+}
+.circle{
+  height: 200px;
+  width: 800px;
+  text-align: center;
+  margin: 0 auto;
+}
+.circle-outer-border{
+  position: relative;
+  border: 2px solid orange;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.circle-fill{
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: -100%;
+  background-color: rgba( 255, 153, 0,0.5);
+}
+
