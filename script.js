@@ -2,24 +2,58 @@ breakval = document.getElementById('breakval');
 sessionval = document.getElementById('sessionval');
 pause = document.getElementById("loading");
 filler = document.getElementById("fill");
-state = 0;
+timeDisp = document.getElementById("timeDisp");
+timeDisp.innerHTML = timer(Number(sessionval.innerHTML)*60);
+state=Number(sessionval.innerHTML)*60;
 
-pause.addEventListener("click",function(){
+/*pause.addEventListener("click",function(){
+	move()
+},false);*/
 
-},false);
+move(Number(sessionval.innerHTML)*60);
 
-function move()
-{	
-	setTimeout("move()",50);
-	
-	if(state>100)
+function timer(seconds)
+{
+	min = Math.floor(Math.floor(seconds) / 60);
+	second = Math.floor(seconds)%60;
+	if(min<10)
 	{
+		if(second<10)
+		{
+			return "0"+min+":0"+second;
+		}
+		else
+		{
+			return "0"+min+":"+second;
+		}
+	}
+	else
+	{
+		if(second<10)
+		{
+			return min+":0"+second;
+		}
+		else
+		{
+			return min+":"+second;
+		}
+	}
+	
+}
+
+function move(length)
+{
+	setTimeout("move()",1000);
+	
+	if(state==0)
+	{	
 		clearTimeout(setTimeout("move()",50));
 	}
 	else
 	{
-		state+=0.5;
-		document.getElementById("fill").style.left = "-"+(100-state)+"%";
+		state -= 1;
+		timeDisp.innerHTML = timer(state);
+		document.getElementById("fill").style.left = "-"+(100-(state/(Number(sessionval.innerHTML)*60))*100)+"%";
 	}
 }
 
@@ -36,16 +70,18 @@ function breakvalplus(){
 	}	
 }
 function sessionvalminus(){
-	if(Number(sessionval.innerHTML)>5)
+	if(Number(sessionval.innerHTML)>1)
 	{
 		sessionval.innerHTML=(Number(sessionval.innerHTML)-1).toString();
 	}
+	timeDisp.innerHTML = timer(Number(sessionval.innerHTML)*60);
 	
 }
 function sessionvalplus(){
 	if(Number(sessionval.innerHTML)<60)
 	{
 		sessionval.innerHTML=(Number(sessionval.innerHTML)+1).toString();
-	}	
+	}
+	timeDisp.innerHTML = timer(Number(sessionval.innerHTML)*60);
 }
 

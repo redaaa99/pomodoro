@@ -40,7 +40,12 @@ p{
 	font-size: 25pt; 
 	text-shadow: 1px 1px 1px white;
 }
-
+#timeDisp{
+	font-size: 60pt;
+	font-family: monospace;
+	display:table;
+	margin: 50px auto;
+}
 .values{
 	font-size:25pt;
 	text-shadow: none;
