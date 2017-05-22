@@ -5,12 +5,32 @@ filler = document.getElementById("fill");
 timeDisp = document.getElementById("timeDisp");
 timeDisp.innerHTML = timer(Number(sessionval.innerHTML)*60);
 state=Number(sessionval.innerHTML)*60;
+a = Number(sessionval.innerHTML)*60;
+var myTime;
+moving =false;
 
-/*pause.addEventListener("click",function(){
-	move()
-},false);*/
+pause.addEventListener("click",function(){
+	if(!moving)
+	{	
+		move(Number(a));
+		moving = true;
+	}
+	else
+	{
+		a = timerinv(timeDisp.innerHTML.toString());
+		clearTimeout(myTime);
+		moving  = false;
+	}
+},false);
 
-move(Number(sessionval.innerHTML)*60);
+
+function timerinv(str)
+{
+	arr = str.split("");
+	min = Number(arr[0])*10+Number(arr[1]);
+	sec = Number(arr[3])*10+Number(arr[4]);
+	return min*60+sec;
+}
 
 function timer(seconds)
 {
@@ -38,16 +58,16 @@ function timer(seconds)
 			return min+":"+second;
 		}
 	}
-	
+		
 }
 
 function move(length)
 {
-	setTimeout("move()",1000);
+	myTime=setTimeout("move()",1000);
 	
 	if(state==0)
 	{	
-		clearTimeout(setTimeout("move()",50));
+		clearTimeout(myTime);
 	}
 	else
 	{
@@ -60,28 +80,41 @@ function move(length)
 function breakvalminus(){
 	if(Number(breakval.innerHTML)>1)
 	{
-		breakval.innerHTML=(Number(breakval.innerHTML)-1).toString();
+		if(!moving)
+		{
+			breakval.innerHTML=(Number(breakval.innerHTML)-1).toString();
+		}
 	}	
 }
 function breakvalplus(){
 	if(Number(breakval.innerHTML)<60)
 	{
-		breakval.innerHTML=(Number(breakval.innerHTML)+1).toString();
+		if(!moving)
+		{
+			breakval.innerHTML=(Number(breakval.innerHTML)+1).toString();
+		}
 	}	
 }
 function sessionvalminus(){
 	if(Number(sessionval.innerHTML)>1)
 	{
-		sessionval.innerHTML=(Number(sessionval.innerHTML)-1).toString();
-	}
-	timeDisp.innerHTML = timer(Number(sessionval.innerHTML)*60);
-	
+		if(!moving)
+		{
+			sessionval.innerHTML=(Number(sessionval.innerHTML)-1).toString();
+			timeDisp.innerHTML = timer(Number(sessionval.innerHTML)*60);
+		}
+		
+	}	
 }
 function sessionvalplus(){
 	if(Number(sessionval.innerHTML)<60)
 	{
-		sessionval.innerHTML=(Number(sessionval.innerHTML)+1).toString();
+		if(!moving)
+		{
+			sessionval.innerHTML=(Number(sessionval.innerHTML)+1).toString();
+			timeDisp.innerHTML = timer(Number(sessionval.innerHTML)*60);
+		}
 	}
-	timeDisp.innerHTML = timer(Number(sessionval.innerHTML)*60);
+	
 }
 
