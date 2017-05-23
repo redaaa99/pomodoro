@@ -8,11 +8,23 @@ state=Number(sessionval.innerHTML)*60;
 a = Number(sessionval.innerHTML)*60;
 var myTime;
 moving =false;
+reset = false;
 
 pause.addEventListener("click",function(){
 	if(!moving)
-	{	
-		move(Number(a));
+	{
+		if(reset)
+		{
+			state=Number(sessionval.innerHTML)*60;
+			a = Number(sessionval.innerHTML)*60;
+			move();
+			reset = false;
+		}
+		else
+		{
+			move();
+		}
+		
 		moving = true;
 	}
 	else
@@ -61,7 +73,7 @@ function timer(seconds)
 		
 }
 
-function move(length)
+function move()
 {
 	myTime=setTimeout("move()",1000);
 	
@@ -102,6 +114,7 @@ function sessionvalminus(){
 		{
 			sessionval.innerHTML=(Number(sessionval.innerHTML)-1).toString();
 			timeDisp.innerHTML = timer(Number(sessionval.innerHTML)*60);
+			reset = true;
 		}
 		
 	}	
@@ -113,6 +126,7 @@ function sessionvalplus(){
 		{
 			sessionval.innerHTML=(Number(sessionval.innerHTML)+1).toString();
 			timeDisp.innerHTML = timer(Number(sessionval.innerHTML)*60);
+			reset = true;
 		}
 	}
 	
