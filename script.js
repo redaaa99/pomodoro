@@ -133,7 +133,7 @@ function moveinv()
 	
 	if(state==0)
 	{	
-
+		document.getElementById("fill").style.backgroundColor = "rgba(180, 255, 0, 0.5)";
 		clearTimeout(myBreakTime);
 		state=Number(sessionval.innerHTML)*60;
 		a = Number(sessionval.innerHTML)*60;
