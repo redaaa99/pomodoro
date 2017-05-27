@@ -10,28 +10,60 @@ var myTime;
 moving =false;
 reset = false;
 
+session = true;
+breakmode = false;
+
 pause.addEventListener("click",function(){
 	if(!moving)
 	{
 		if(reset)
 		{
-			state=Number(sessionval.innerHTML)*60;
-			a = Number(sessionval.innerHTML)*60;
-			move();
-			reset = false;
+			if(session)
+			{
+				state=Number(sessionval.innerHTML)*60;
+				a = Number(sessionval.innerHTML)*60;
+				move();
+				reset = false;
+			}
+			else if(breakmode)
+			{
+				state=Number(breakval.innerHTML)*60;
+				a = Number(breakval.innerHTML)*60;
+				moveinv();
+				reset = false;
+			}
+			
 		}
 		else
 		{
-			move();
+			if(session)
+			{
+				move();
+			}
+			else if(breakmode)
+			{
+				moveinv();
+			}
+			
 		}
 		
 		moving = true;
 	}
 	else
 	{
-		a = timerinv(timeDisp.innerHTML.toString());
-		clearTimeout(myTime);
-		moving  = false;
+		if(session)
+		{
+			a = timerinv(timeDisp.innerHTML.toString());
+			clearTimeout(myTime);
+			moving  = false;
+		}
+		else if(breakmode)
+		{
+			a = timerinv(timeDisp.innerHTML.toString());
+			clearTimeout(myBreakTime);
+			moving  = false;
+		}
+		
 	}
 },false);
 
@@ -79,7 +111,13 @@ function move()
 	
 	if(state==0)
 	{	
+		document.getElementById("fill").style.backgroundColor = "rgba(255, 60, 60, 0.69)";
 		clearTimeout(myTime);
+		state=Number(breakval.innerHTML)*60;
+		a = Number(breakval.innerHTML)*60;
+		session = false;
+		breakmode = true;
+		moveinv();
 	}
 	else
 	{
@@ -89,12 +127,36 @@ function move()
 	}
 }
 
+function moveinv()
+{
+	myBreakTime=setTimeout("moveinv()",1000);
+	
+	if(state==0)
+	{	
+
+		clearTimeout(myBreakTime);
+		state=Number(sessionval.innerHTML)*60;
+		a = Number(sessionval.innerHTML)*60;
+		session = true;
+		breakmode = false;
+		move();
+		
+	}
+	else
+	{
+		state -= 1;
+		timeDisp.innerHTML = timer(state);
+		document.getElementById("fill").style.left = "-"+(100-(state/(Number(breakval.innerHTML)*60))*100)+"%";
+	}
+}
+
 function breakvalminus(){
 	if(Number(breakval.innerHTML)>1)
 	{
 		if(!moving)
 		{
 			breakval.innerHTML=(Number(breakval.innerHTML)-1).toString();
+			reset = true;
 		}
 	}	
 }
@@ -104,6 +166,7 @@ function breakvalplus(){
 		if(!moving)
 		{
 			breakval.innerHTML=(Number(breakval.innerHTML)+1).toString();
+			reset = true;
 		}
 	}	
 }
@@ -112,9 +175,13 @@ function sessionvalminus(){
 	{
 		if(!moving)
 		{
-			sessionval.innerHTML=(Number(sessionval.innerHTML)-1).toString();
-			timeDisp.innerHTML = timer(Number(sessionval.innerHTML)*60);
-			reset = true;
+			if(!breakmode)
+			{
+				sessionval.innerHTML=(Number(sessionval.innerHTML)-1).toString();
+				timeDisp.innerHTML = timer(Number(sessionval.innerHTML)*60);
+				reset = true;
+			}
+			
 		}
 		
 	}	
@@ -124,9 +191,13 @@ function sessionvalplus(){
 	{
 		if(!moving)
 		{
-			sessionval.innerHTML=(Number(sessionval.innerHTML)+1).toString();
-			timeDisp.innerHTML = timer(Number(sessionval.innerHTML)*60);
-			reset = true;
+			if(!breakmode)
+			{
+				sessionval.innerHTML=(Number(sessionval.innerHTML)+1).toString();
+				timeDisp.innerHTML = timer(Number(sessionval.innerHTML)*60);
+				reset = true;
+			}
+			
 		}
 	}
 	
